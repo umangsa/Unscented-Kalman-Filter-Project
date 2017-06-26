@@ -11,6 +11,20 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
 class UKF {
+private:
+  ///* Generate the sigma points as part of the prediction phase
+  void GenerateSigmaPoints();
+
+  void AugmentedSigmaPoints(MatrixXd* Xsig_out);
+
+  void SigmaPointPrediction(MatrixXd & Xsig_out, double delta_t);
+
+  void PredictMeanAndCovariance();
+
+  void PredictRadarMeasurement(VectorXd* z_out, MatrixXd* S_out, MatrixXd &Zsig, int n_z);
+
+  void PredictLidarMeasurement(VectorXd* z_out, MatrixXd* S_out, MatrixXd &Zsig, int n_z);
+
 public:
 
   ///* initially set to false, set to true in first call of ProcessMeasurement
@@ -64,8 +78,14 @@ public:
   ///* Augmented state dimension
   int n_aug_;
 
+  ///* Number of sigma points
+  int n_sig_;
+
   ///* Sigma point spreading parameter
   double lambda_;
+
+  ///* square root of P
+  MatrixXd A_;
 
 
   /**
