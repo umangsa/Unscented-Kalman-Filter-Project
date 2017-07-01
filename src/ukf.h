@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 
+using namespace std;
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
@@ -86,6 +87,9 @@ public:
 
   ///* square root of P
   MatrixXd A_;
+
+  ofstream radar_log_;
+  ofstream lidar_log_;
 
 
   /**
